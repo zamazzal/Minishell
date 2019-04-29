@@ -6,7 +6,7 @@
 /*   By: zamazzal <zouhir.amazzal@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 19:48:38 by zamazzal          #+#    #+#             */
-/*   Updated: 2019/04/28 20:17:47 by zamazzal         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:25:04 by zamazzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ static void		ft_goback(char *path)
 	char *now;
 	char *old;
 
-	now = ft_getenv("OLDPWD");
+	now = ft_strdup(ft_getenv("OLDPWD"));
+	if (now == NULL)
+	{
+		ft_putendl("cd error : OLDPATH is NULL");
+		return ;
+	}
 	old = getcwd(ft_strnew(1023), BUFFER_SIZE);
 	ft_setenv("OLDPWD", old);
 	ft_entre(now, now);
+	free(now);
 	extra_free(old, path);
 }
 
